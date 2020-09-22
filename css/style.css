@@ -22,11 +22,22 @@
   width: 50px;
 }
 
-
 #movies-list{
   margin: 50px;
 }
 
 .movie{
   margin-bottom: 20px;
+}
+
+.movies-page-list {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+}
+.numero_pagine{
+  padding: 20px;
+  border: 1px solid black;
+  text-align: center;
+  cursor: pointer;
 }

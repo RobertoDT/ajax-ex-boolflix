@@ -11,7 +11,7 @@
 
   <!-- searchbar -->
   <header>
-    <div class="search_bar">
+    <div class="search_bar" data-search="">
       <input class="search_input" type="text" name="" value="" placeholder="cerca film">
       <button class="search_button" type="button" name="button">Cerca</button>
     </div>
@@ -22,7 +22,14 @@
 
   </ul>
 
+  <footer id="movies-page">
+    <ul class="movies-page-list">
+
+    </ul>
+  </footer>
+
   <!-- TEMPLATES -->
+  <!-- template film -->
   <script id="movies-template" type="text/x-handlebars-template">
     <li class="movie">
       <h1>Titolo : {{title}}</h1>
@@ -31,6 +38,15 @@
       <p>Media dei voti: {{vote_average}}</p>
     </li>
   </script>
+  <!-- /template film -->
+
+  <!-- template pagine -->
+  <script id="pages-template" type="text/x-handlebars-template">
+    <li class="numero_pagine" data-page="{{page}}">
+      <span>{{page}}</span>
+    </li>
+  </script>
+  <!-- /template pagine -->
   <!-- /TEMPLATES -->
 
   <script src="js/main.js" charset="utf-8"></script>
