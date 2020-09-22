@@ -1,6 +1,35 @@
 $(document).ready(function(){
 
-  var searchMovie = "star wars";
+  // funzione cerca al click sul bottone
+  $(".search_button").click(function(){
+    //svuoto subito il contenuto della lista del momento
+    $("#movies-list").html("");
+
+    var searchMovie = $(".search_input").val();
+    stampaFilm(searchMovie);
+
+    //svuoto il valore della input del momento
+    $(".search_input").val("");
+  });
+
+  // funzione cerca premendo invio
+  $(".search_input").keyup(function(){
+
+    if(event.which == 13){
+      $("#movies-list").html("");
+
+      var searchMovie = $(".search_input").val();
+      stampaFilm(searchMovie);
+
+      $(".search_input").val("");
+    }
+
+  });
+
+});
+
+//Printa il risultato della risposta a schermo
+function stampaFilm(cercaFilm){
   var api_key = "e985f53e1e87b07c7fd1095468f025a0";
 
   //preparo il template
@@ -14,7 +43,7 @@ $(document).ready(function(){
         "api_key" : api_key,
         "language": "it-IT",
         "page": 1,
-        "query": searchMovie
+        "query": cercaFilm
       },
       "method": "GET",
       "success": function (data, stato) {
@@ -29,7 +58,7 @@ $(document).ready(function(){
             "original_language" : results[i].original_language,
             "vote_average": results[i].vote_average
           };
-          console.log(context);
+
           var html = template(context);
 
           $("#movies-list").append(html);
@@ -40,9 +69,4 @@ $(document).ready(function(){
       }
     }
   );
-
-
-
-
-
-});
+}
