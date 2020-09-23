@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>BoolFlix</title>
   </head>
@@ -34,8 +35,11 @@
     <li class="movie">
       <h1>Titolo : {{title}}</h1>
       <h3>Titolo originale: {{original_title}}</h3>
-      <p>Lingua originale: {{original_language}}</p>
+      <img class="flag_img" src="https://www.countryflags.io/{{original_language}}/flat/64.png">
       <p>Media dei voti: {{vote_average}}</p>
+      <ul class="star-list">
+
+      </ul>
     </li>
   </script>
   <!-- /template film -->
@@ -47,8 +51,18 @@
     </li>
   </script>
   <!-- /template pagine -->
+
+  <!-- template stellina -->
+  <script id="star-template" type="text/x-handlebars-template">
+    <li class="star">
+      <span><i class="fas fa-star"></i></span>
+    </li>
+  </script>
+  <!-- /template stellina -->
+
   <!-- /TEMPLATES -->
 
+  <!-- <script src="js/test.js" charset="utf-8"></script> -->
   <script src="js/main.js" charset="utf-8"></script>
   </body>
 </html>

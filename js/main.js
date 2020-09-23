@@ -2,11 +2,10 @@ $(document).ready(function(){
   //variabile globale
   var lastSearch = "";
 
-
   // funzione cerca al click sul bottone
   $(".search_button").click(function(){
     //prendo il valore dell'input e lo salvo in variabile
-    var searchMovie = $(".search_input").val();
+    var searchMovie = $(".search_input").val("");
     lastSearch = $(".search_input").val();
     if(searchMovie != ""){
       //invoco funzione per stampare a schermo la lista di film
@@ -23,6 +22,7 @@ $(document).ready(function(){
 
     if(event.which == 13){
       var searchMovie = $(".search_input").val();
+      // var searchMovie = "star wars";
       //setto l'attriburo come valore della input per salvarlo
       lastSearch = $(".search_input").val();
       if(searchMovie != ""){
@@ -88,18 +88,23 @@ function stampaFilm(data, pagina){
 
   //array del risultato
   var results = data.results;
-
   for(var i = 0; i < results.length; i++){
-
+    var originalLanguage = translation(results[i].original_language);
+    
     var context = {
       "title": results[i].title,
       "original_title": results[i].original_title,
-      "original_language" : results[i].original_language,
-      "vote_average": results[i].vote_average
+      "original_language" : originalLanguage,
+      "vote_average": results[i].vote_average,
     };
 
     var html = template(context);
     $("#movies-list").append(html);
+
+    //mi prendo il voto e lo trasformo in stelle
+    var voto = convert(results[i].vote_average);
+    $(".movie:nth-child("+(i+1)+") .star-list").append(voto);
+
   }
 }
 
@@ -128,4 +133,30 @@ function clear(){
   //svuoto contenuti della lista di film e dei quadratini
   $("#movies-list").html("");
   $(".movies-page-list").html("");
+}
+
+//funzione che converte il numero decimale da 1 a 10 in un intero da 1 a 5
+function convert(vote){
+
+  var newVote = Math.ceil(vote / 2);
+
+  var source = $("#star-template").html();
+  var template = Handlebars.compile(source);
+  //il template è già compilato nell'html
+  var html = template();
+  var voteStar = "";
+
+  for(var i = 0; i < newVote; i++){
+    voteStar = voteStar + html;
+  }
+
+  return voteStar;
+}
+
+
+function translation(lang){
+  if(lang == "en"){
+    return "gb";
+  }
+  return lang;
 }

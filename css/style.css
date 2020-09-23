@@ -41,3 +41,13 @@
   text-align: center;
   cursor: pointer;
 }
+
+.star-list{
+  display: flex;
+  list-style: none;
+  color: #e6e600;
+}
+
+.flag_img{
+  width: 20px;
+}
