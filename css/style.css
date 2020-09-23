@@ -22,11 +22,11 @@
   width: 50px;
 }
 
-#movies-list{
+#global-list{
   margin: 50px;
 }
 
-.movie{
+.movie, .serie{
   margin-bottom: 20px;
 }
 
