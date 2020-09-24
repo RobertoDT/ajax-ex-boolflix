@@ -4,14 +4,34 @@
   padding: 0;
 }
 
+/*MIX*/
+.bold{
+  font-weight: bold;
+}
+.white{
+  color: white;
+}
+
+body{
+  font-family: 'Roboto', sans-serif;
+  background-color: darkgrey;
+}
+
 .search_bar{
   width: 100%;
   background-color: black;
   height: 100px;
-  text-align: center;
+  padding: 30px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+}
+h1{
+  color: red;
+  font-size: 50px;
+}
+.search_container{
+  justify-content: flex-end;
 }
 .search_bar input{
   width: 200px;
@@ -24,10 +44,15 @@
 
 #global-list{
   margin: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
-.movie, .serie{
+.movie{
   margin-bottom: 20px;
+  list-style: none;
+  margin: 20px;
 }
 
 .movies-page-list {
@@ -48,7 +73,29 @@
   color: #e6e600;
 }
 
-/*
 .flag_img{
-  width: 20px;
-} */
+  width: 30px;
+}
+
+/*LAYOVER*/
+.layover-container{
+  width: 342px;
+  height: 100%;
+  position: relative;
+  overflow-y: auto;
+}
+
+.layover{
+  width: 100%;
+  height: calc(100% - 4px);
+  background-color: black;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  display: none;
+}
+.layover-container:hover .layover{
+  display: block;
+}

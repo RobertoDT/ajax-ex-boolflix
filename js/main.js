@@ -81,7 +81,7 @@ function getSeries(cercaFilm){
       "method": "GET",
       "success": function (data, stato) {
 
-        stampaResults("SerieTV", data);
+        stampaResults("SerieTv", data);
 
       },
       "error": function (richiesta, stato, errori) {
@@ -92,7 +92,7 @@ function getSeries(cercaFilm){
 
 }
 
-//Printa il risultato della risposta a schermo con i film
+//Printa il risultato della risposta a schermo con i film e le serieTv
 function stampaResults(type, data){
 
   //preparo il template
@@ -107,7 +107,7 @@ function stampaResults(type, data){
     if(type == "Film"){
       title = results[i].title;
       original_title = results[i].original_title;
-    } else if(type == "SerieTV"){
+    } else if(type == "SerieTv"){
       title = results[i].name;
       original_title = results[i].original_name;
     }
@@ -116,11 +116,12 @@ function stampaResults(type, data){
     var context = {
       "title": title,
       "original_title": original_title,
-      "original_language" : translation(results[i].original_language),
+      "original_language" : results[i].original_language,
       "vote_average": results[i].vote_average,
       "vote_star": convert(results[i].vote_average),
       "poster": results[i].poster_path,
-      "type": type
+      "type": type,
+      "overview": results[i].overview
     };
 
     var html = template(context);
@@ -131,9 +132,8 @@ function stampaResults(type, data){
 
 //funzione che svuota i contenuti della lista di film e serie quando faccio una nuova ricerca
 function clear(){
-  //svuoto contenuti della lista di film e dei quadratini
+  //svuoto contenuti della lista di film
   $("#global-list").html("");
-  // $(".movies-page-list").html("");
 }
 
 //funzione che converte il numero decimale da 1 a 10 in un intero da 1 a 5 e restituisce il numero di stelle
@@ -152,18 +152,4 @@ function convert(vote){
   }
   //la funzione mi restituirà il numero di stelline in base al voto
   return voteStar;
-}
-
-//funzione per leggere anche la bandiera dell'inghilterra e del giappone
-function translation(lang){
-
-  if(lang == "en"){
-    return "gb";
-  } else if(lang == "ja"){
-    return "jp";
-  } else if(lang == "zh"){
-    return "cn";
-  }
-
-  return lang;
 }

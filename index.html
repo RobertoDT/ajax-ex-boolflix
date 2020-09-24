@@ -5,6 +5,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>BoolFlix</title>
   </head>
@@ -12,10 +13,13 @@
 
   <!-- searchbar -->
   <header>
-    <div class="search_bar">
-      <input class="search_input" type="text" name="" value="" placeholder="cerca film">
-      <button class="search_button" type="button" name="button">Cerca</button>
-    </div>
+    <nav class="search_bar">
+      <h1>BOOLFLIX</h1>
+      <div class="search_container">
+        <input class="search_input" type="text" name="" value="" placeholder="cerca film">
+        <button class="search_button" type="button" name="button">Cerca</button>
+      </div>
+    </nav>
   </header>
   <!-- /searchbar -->
 
@@ -29,17 +33,24 @@
 
   <!-- template globale per film e serie -->
   <script id="global-template" type="text/x-handlebars-template">
-    <li class="movie">
-      <img src="https://image.tmdb.org/t/p/w185{{poster}}" alt="img_movie">
-      <h1>{{type}} : {{title}}</h1>
-      <h3>Titolo originale: {{original_title}}</h3>
-      <img class="flag_img" src="https://www.countryflags.io/{{original_language}}/flat/24.png">
-      <p>Media dei voti: {{vote_average}}</p>
-      <ul class="star-list">
-        <!-- per includere l'html delle stelle -->
-        {{{vote_star}}}
-      </ul>
-    </li>
+    <div class="layover-container">
+      <div class="layover">
+        <li class="movie">
+          <h2>{{type}} : {{title}}</h1>
+          <h3>Titolo originale: {{original_title}}</h3>
+          <h3>Lingua: <img class="flag_img" src="https://www.unknown.nu/flags/images/{{original_language}}-100"></h3>
+          <p>Media dei voti: {{vote_average}}</p>
+          <ul class="star-list">
+            <!-- per includere l'html delle stelle -->
+            <strong class="white">Voto:&nbsp;</strong> {{{vote_star}}}
+          </ul>
+          <span class="bold">Overview: </span>
+          <span>{{overview}}</span>
+        </li>
+      </div>
+      <img src="https://image.tmdb.org/t/p/w342{{poster}}" alt="img_movie">
+    </div>
+
   </script>
   <!-- /template globale per film e serie -->
 
