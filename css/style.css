@@ -46,13 +46,11 @@ h1{
   margin: 50px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
 .movie{
-  margin-bottom: 20px;
   list-style: none;
-  margin: 20px;
 }
 
 .movies-page-list {
@@ -81,8 +79,10 @@ h1{
 .layover-container{
   width: 342px;
   height: 100%;
+  margin: 20px;
   position: relative;
   overflow-y: auto;
+  cursor: pointer;
 }
 
 .layover{
@@ -90,12 +90,22 @@ h1{
   height: calc(100% - 4px);
   background-color: black;
   color: white;
+  padding: 50px 20px 5px 20px;
   position: absolute;
   top: 0;
   left: 0;
   overflow-y: auto;
-  display: none;
+  opacity: 0;
+  transition: opacity 1s;
 }
 .layover-container:hover .layover{
   display: block;
+  transition: opacity 0.3s;
+}
+.layover:hover{
+  opacity: 1;
+}
+
+.title, .original-title, .language, .star-list{
+  margin-bottom: 10px;
 }

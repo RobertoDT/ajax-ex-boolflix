@@ -112,6 +112,11 @@ function stampaResults(type, data){
       original_title = results[i].original_name;
     }
 
+    var overview = results[i].overview;
+    if(overview == ""){
+      overview = "Non è presente alcuna descrizione";
+    }
+    
     //cambio i valori del context con le nuove chiavi della nuova chiamata API
     var context = {
       "title": title,
@@ -121,7 +126,7 @@ function stampaResults(type, data){
       "vote_star": convert(results[i].vote_average),
       "poster": results[i].poster_path,
       "type": type,
-      "overview": results[i].overview
+      "overview": overview
     };
 
     var html = template(context);
@@ -132,7 +137,7 @@ function stampaResults(type, data){
 
 //funzione che svuota i contenuti della lista di film e serie quando faccio una nuova ricerca
 function clear(){
-  //svuoto contenuti della lista di film
+
   $("#global-list").html("");
 }
 

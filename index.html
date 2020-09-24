@@ -36,15 +36,14 @@
     <div class="layover-container">
       <div class="layover">
         <li class="movie">
-          <h2>{{type}} : {{title}}</h1>
-          <h3>Titolo originale: {{original_title}}</h3>
-          <h3>Lingua: <img class="flag_img" src="https://www.unknown.nu/flags/images/{{original_language}}-100"></h3>
-          <p>Media dei voti: {{vote_average}}</p>
+          <h2 class="title">{{type}} : {{title}}</h1>
+          <h3 class="original-title">Titolo originale: {{original_title}}</h3>
+          <h3 class="language">Lingua: <img class="flag_img" src="https://www.unknown.nu/flags/images/{{original_language}}-100"></h3>
           <ul class="star-list">
             <!-- per includere l'html delle stelle -->
             <strong class="white">Voto:&nbsp;</strong> {{{vote_star}}}
           </ul>
-          <span class="bold">Overview: </span>
+          <span class="overview bold">Overview: </span>
           <span>{{overview}}</span>
         </li>
       </div>
