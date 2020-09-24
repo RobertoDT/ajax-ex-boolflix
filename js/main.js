@@ -1,25 +1,20 @@
 $(document).ready(function(){
-  //variabile globale settata a vuota che andrò a riempire con il valore del campo input (mi servirà se utilizzerò il numero di pagine)
-  // var lastSearch = "";
-
-
   // funzione cerca al click sul bottone
   $(".search_button").click(function(){
     //prendo il valore dell'input e lo salvo in variabile
     var searchMovie = $(".search_input").val("");
-    //clono la variabile searchmovie
-    // lastSearch = $(".search_input").val();
+
     if(searchMovie != ""){
       //svuoto contenuti della lista di film
       clear();
       //invoco funzione per stampare a schermo la lista di film
       getMovies(searchMovie);
+      getSeries(searchMovie);
 
       //svuoto il valore della input del momento
       $(".search_input").val("");
     }
   });
-
 
   // funzione cerca premendo invio
   $(".search_input").keyup(function(){
@@ -32,29 +27,21 @@ $(document).ready(function(){
       if(searchMovie != ""){
         clear();
         getMovies(searchMovie);
+        getSeries(searchMovie);
 
         $(".search_input").val("");
       }
     }
-
-
   });
-
-  //click sul quadratino prende il valore di data-page e passiamo il valore alla funzione stampaFilm
-  // $(document).on("click", ".numero_pagine", function(){
-  //   //seleziono con il this cioè quel quadratino che vado a selezionare
-  //   var numeroPagina = $(this).attr("data-page");
-  //   getMovies(lastSearch, numeroPagina);
-  //   clear();
-  // });
 
 });
 // /document
 
 //FUNZIONI
+//funzione che fa chiamata per la ricerca di film
 function getMovies(cercaFilm){
   var api_key = "e985f53e1e87b07c7fd1095468f025a0";
-
+  //chiamata per film
   $.ajax(
     {
       "url": "https://api.themoviedb.org/3/search/movie",
@@ -67,8 +54,7 @@ function getMovies(cercaFilm){
       "method": "GET",
       "success": function (data, stato) {
 
-        stampaFilm(data);
-        // stampaPagine(data);
+        stampaResults("Film", data);
 
       },
       "error": function (richiesta, stato, errori) {
@@ -77,7 +63,12 @@ function getMovies(cercaFilm){
     }
   );
 
-  //seconda chiamata ajax
+}
+
+//funzione che fa chiamata per la ricerca delle serieTv
+function getSeries(cercaFilm){
+  var api_key = "e985f53e1e87b07c7fd1095468f025a0";
+  //chiamata per serieTv
   $.ajax(
     {
       "url": "https://api.themoviedb.org/3/search/tv",
@@ -90,8 +81,7 @@ function getMovies(cercaFilm){
       "method": "GET",
       "success": function (data, stato) {
 
-        stampaSerie(data);
-        // stampaPagine(data);
+        stampaResults("SerieTV", data);
 
       },
       "error": function (richiesta, stato, errori) {
@@ -102,70 +92,35 @@ function getMovies(cercaFilm){
 
 }
 
-
-function stampaSerie(data){
-
-    //pagina==null
-    // if(pagina == ""){
-    //   var pagina = 1;
-    // }
-
-    //preparo il template
-    var source = $("#series-template").html();
-    var template = Handlebars.compile(source);
-
-    //array del risultato
-    var results = data.results;
-    for(var i = 0; i < results.length; i++){
-
-      //mi prendo il voto e lo trasformo in stelle
-      var voto = convert(results[i].vote_average);
-      //mi prendo la lingua e la trasformo in bandiera (includendo anche inghilterra e giappone)
-      var originalLanguage = translation(results[i].original_language);
-
-      var context = {
-        "name": results[i].name,
-        "original_name": results[i].original_name,
-        "original_language" : originalLanguage,
-        "vote_average": results[i].vote_average,
-        "vote_star": voto
-      };
-
-      var html = template(context);
-      $("#global-list").append(html);
-
-    }
-}
-
-
-//Printa il risultato della risposta a schermo con i film e il numero di pagine
-function stampaFilm(data){
-
-  //pagina==null
-  // if(pagina == ""){
-  //   var pagina = 1;
-  // }
+//Printa il risultato della risposta a schermo con i film
+function stampaResults(type, data){
 
   //preparo il template
-  var source = $("#movies-template").html();
+  var source = $("#global-template").html();
   var template = Handlebars.compile(source);
 
   //array del risultato
   var results = data.results;
   for(var i = 0; i < results.length; i++){
 
-    var originalLanguage = translation(results[i].original_language);
-
-    //mi prendo il voto e lo trasformo in stelle
-    var voto = convert(results[i].vote_average);
+    var title, original_title;
+    if(type == "Film"){
+      title = results[i].title;
+      original_title = results[i].original_title;
+    } else if(type == "SerieTV"){
+      title = results[i].name;
+      original_title = results[i].original_name;
+    }
 
     //cambio i valori del context con le nuove chiavi della nuova chiamata API
     var context = {
-      "title": results[i].title,
-      "original_title": results[i].original_title,
-      "original_language" : originalLanguage,
+      "title": title,
+      "original_title": original_title,
+      "original_language" : translation(results[i].original_language),
       "vote_average": results[i].vote_average,
-      "vote_star": voto
+      "vote_star": convert(results[i].vote_average),
+      "poster": results[i].poster_path,
+      "type": type
     };
 
     var html = template(context);
@@ -174,59 +129,30 @@ function stampaFilm(data){
   }
 }
 
-
-//stampo il numero di pagine della chiamata
-// function stampaPagine(data){
-//   var pageNumber = data.total_pages;
-//   //preparo il template
-//   var source = $("#pages-template").html();
-//   var template = Handlebars.compile(source);
-//
-//   //ciclo i numeri delle pagine prodotte dal risutato della query e compilo il context
-//   for(var i = 1; i <= pageNumber; i++){
-//     var context = {
-//       "page": i
-//     }
-//
-//     var html = template(context);
-//     //stampo nel DOM
-//     $(".movies-page-list").append(html);
-//   }
-// }
-
-
 //funzione che svuota i contenuti della lista di film e serie quando faccio una nuova ricerca
 function clear(){
   //svuoto contenuti della lista di film e dei quadratini
   $("#global-list").html("");
-  $(".movies-page-list").html("");
+  // $(".movies-page-list").html("");
 }
 
-
-//funzione che converte il numero decimale da 1 a 10 in un intero da 1 a 5
+//funzione che converte il numero decimale da 1 a 10 in un intero da 1 a 5 e restituisce il numero di stelle
 function convert(vote){
-
   var newVote = Math.ceil(vote / 2);
-
-  // preparo il template
-  var source = $("#star-template").html();
-  var template = Handlebars.compile(source);
-
-  //il template è già compilato nell'html quindi non abbiamo il context
-  var html = template();
-
   //setto la variabile vuota che andrò a popolare nel ciclo for
   var voteStar = "";
 
-  for(var i = 0; i < newVote; i++){
-    //ad ogni giro popolo la var aggiungendo ad ogni giro l'html che sarebbe la nuova stellina
-    voteStar = voteStar + html;
-  }
+  for(var i = 1; i <= 5; i++){
 
+    if(i < newVote){
+      voteStar += "<i class='fas fa-star'></i>";
+    } else{
+      voteStar += "<i class='far fa-star'></i>";
+    }
+  }
   //la funzione mi restituirà il numero di stelline in base al voto
   return voteStar;
 }
-
 
 //funzione per leggere anche la bandiera dell'inghilterra e del giappone
 function translation(lang){
@@ -235,6 +161,8 @@ function translation(lang){
     return "gb";
   } else if(lang == "ja"){
     return "jp";
+  } else if(lang == "zh"){
+    return "cn";
   }
 
   return lang;

@@ -25,21 +25,15 @@
   </ul>
   <!-- /lista di film + serietv -->
 
-  <!-- footer con numero di pagine -->
-  <footer id="movies-page">
-    <ul class="movies-page-list">
-
-    </ul>
-  </footer>
-  <!-- /footer con numero di pagine -->
-
   <!-- TEMPLATES -->
-  <!-- template film -->
-  <script id="movies-template" type="text/x-handlebars-template">
+
+  <!-- template globale per film e serie -->
+  <script id="global-template" type="text/x-handlebars-template">
     <li class="movie">
-      <h1>Titolo Film: {{title}}</h1>
+      <img src="https://image.tmdb.org/t/p/w185{{poster}}" alt="img_movie">
+      <h1>{{type}} : {{title}}</h1>
       <h3>Titolo originale: {{original_title}}</h3>
-      <img class="flag_img" src="https://www.countryflags.io/{{original_language}}/flat/64.png">
+      <img class="flag_img" src="https://www.countryflags.io/{{original_language}}/flat/24.png">
       <p>Media dei voti: {{vote_average}}</p>
       <ul class="star-list">
         <!-- per includere l'html delle stelle -->
@@ -47,42 +41,10 @@
       </ul>
     </li>
   </script>
-  <!-- /template film -->
-
-  <!-- template serieTV -->
-  <script id="series-template" type="text/x-handlebars-template">
-    <li class="serie">
-      <h1>Titolo SerieTv : {{name}}</h1>
-      <h3>Titolo originale: {{original_name}}</h3>
-      <img class="flag_img" src="https://www.countryflags.io/{{original_language}}/flat/64.png">
-      <p>Media dei voti: {{vote_average}}</p>
-      <ul class="star-list">
-        <!-- per includere l'html delle stelle direttamente dal js -->
-        {{{vote_star}}}
-      </ul>
-    </li>
-  </script>
-  <!-- /template serieTV -->
-
-  <!-- template pagine -->
-  <script id="pages-template" type="text/x-handlebars-template">
-    <li class="numero_pagine" data-page="{{page}}">
-      <span>{{page}}</span>
-    </li>
-  </script>
-  <!-- /template pagine -->
-
-  <!-- template stellina con già del contenuto -->
-  <script id="star-template" type="text/x-handlebars-template">
-    <li class="star">
-      <span><i class="fas fa-star"></i></span>
-    </li>
-  </script>
-  <!-- /template stellina con già del contenuto-->
+  <!-- /template globale per film e serie -->
 
   <!-- /TEMPLATES -->
 
-  <!-- <script src="js/test.js" charset="utf-8"></script> -->
   <script src="js/main.js" charset="utf-8"></script>
   </body>
 </html>

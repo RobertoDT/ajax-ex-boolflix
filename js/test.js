@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+  //variabile globale settata a vuota che andrò a riempire con il valore del campo input (mi servirà se utilizzerò il numero di pagine)
+  // var lastSearch = "";
+
+
+  //clono la variabile searchmovie
+  // lastSearch = $(".search_input").val();
+
+
   convert(6.7);
 
 });
@@ -34,9 +42,37 @@ function stampaPagine(data){
 
       // $(".serie:nth-child("+(i+1)+") .star-list").append(voto);
 
+
+  //click sul quadratino prende il valore di data-page e passiamo il valore alla funzione stampaFilm
 $(document).on("click", ".numero_pagine", function(){
   //seleziono con il this cioè quel quadratino che vado a selezionare
   var numeroPagina = $(this).attr("data-page");
   getMovies(lastSearch, numeroPagina);
   clear();
 });
+
+
+//pagina==null
+// if(pagina == ""){
+//   var pagina = 1;
+// }
+
+
+//PARTE DEL CODICE html
+
+// <!-- footer con numero di pagine -->
+// <!-- <footer id="movies-page">
+//   <ul class="movies-page-list">
+//
+//   </ul>
+// </footer> -->
+// <!-- /footer con numero di pagine -->
+
+
+// <!-- template pagine -->
+// <!-- <script id="pages-template" type="text/x-handlebars-template">
+//   <li class="numero_pagine" data-page="{{page}}">
+//     <span>{{page}}</span>
+//   </li>
+// </script> -->
+// <!-- /template pagine -->
