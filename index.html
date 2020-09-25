@@ -30,7 +30,6 @@
   <!-- /lista di film + serietv -->
 
   <!-- TEMPLATES -->
-
   <!-- template globale per film e serie -->
   <script id="global-template" type="text/x-handlebars-template">
     <div class="layover-container">
@@ -43,16 +42,16 @@
             <!-- per includere l'html delle stelle -->
             <strong class="white">Voto:&nbsp;</strong> {{{vote_star}}}
           </ul>
+          {{#if overview}}
           <span class="overview bold">Overview: </span>
           <span>{{overview}}</span>
+          {{/if}}
         </li>
       </div>
-      <img src="https://image.tmdb.org/t/p/w342{{poster}}" alt="img_movie">
+      <img style="width: 342px; height: 513px;" src="{{basic_path}}{{poster}}" alt="img_movie">
     </div>
-
   </script>
   <!-- /template globale per film e serie -->
-
   <!-- /TEMPLATES -->
 
   <script src="js/main.js" charset="utf-8"></script>
