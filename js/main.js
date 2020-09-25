@@ -1,20 +1,40 @@
 $(document).ready(function(){
+
+  $(".lista-film").hide();
+  $(".lista-serie").hide();
+
   // funzione cerca al click sul bottone
   $(".search_button").click(function(){
+    showTag();
     ricerca();
   });
 
   // funzione cerca premendo invio
   $(".search_input").keyup(function(){
     if(event.which == 13){
+      showTag();
       ricerca();
     }
   });
 
+  $(".main-logo").click(function(){
+    clear();
+    removeTag();
+  })
 });
 // /document
 
 //FUNZIONI
+//funzioni per far riapparire o scomparire il titolo "lista film" o "lista serie"
+function showTag(){
+  $(".lista-film").show();
+  $(".lista-serie").show();
+}
+function removeTag(){
+  $(".lista-film").hide();
+  $(".lista-serie").hide();
+}
+
 //funzione per la ricerca dei film e serieTv
 function ricerca(){
   var searchMovie = $(".search_input").val();
@@ -47,8 +67,7 @@ function getResults(type, cercaFilm){
         if(totalResult > 0){
           stampaResults(type, data);
         } else {
-          alert("Non abbiamo trovato il risultato che stai cercando!!!");
-          return;
+          notFound(type);
         }
       },
       "error": function (richiesta, stato, errori) {
@@ -69,13 +88,15 @@ function stampaResults(type, data){
   var results = data.results;
   for(var i = 0; i < results.length; i++){
 
-    var title, original_title;
+    var title, original_title, lista;
     if(type == "movie"){
       title = results[i].title;
       original_title = results[i].original_title;
+      lista = $(".film-container");
     } else if(type == "tv"){
       title = results[i].name;
       original_title = results[i].original_name;
+      lista = $(".serie-container");
     }
 
     //sostituisco le immagini non trovate con un immagine sostitutiva
@@ -100,13 +121,32 @@ function stampaResults(type, data){
     };
 
     var html = template(context);
-    $("#global-list").append(html);
+    lista.append(html);
   }
+}
+
+//funzione chiamata nel caso in cui il film o la serie non produce risultati
+function notFound(type){
+  //preparo il template
+  var source = $("#not-found-template").html();
+  var template = Handlebars.compile(source);
+
+  var html = template();
+
+  var lista;
+  if(type == "movie"){
+    lista = $(".film-container");
+  } else if(type == "tv"){
+    lista = $(".serie-container");
+  }
+
+  lista.append(html);
 }
 
 //funzione che svuota i contenuti della lista di film e serie quando faccio una nuova ricerca
 function clear(){
-  $("#global-list").html("");
+  $(".film-container").html("");
+  $(".serie-container").html("");
 }
 
 //funzione che converte il numero decimale da 1 a 10 in un intero da 1 a 5 e restituisce il numero di stelle

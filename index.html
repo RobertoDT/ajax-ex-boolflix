@@ -14,7 +14,7 @@
   <!-- searchbar -->
   <header>
     <nav class="search_bar">
-      <h1>BOOLFLIX</h1>
+      <img class="main-logo" src="img/boolflix_logo.png">
       <div class="search_container">
         <input class="search_input" type="text" name="" value="" placeholder="cerca film">
         <button class="search_button" type="button" name="button">Cerca</button>
@@ -24,9 +24,17 @@
   <!-- /searchbar -->
 
   <!-- lista di film + serietv -->
-  <ul id="global-list">
+  <div class="wrapper">
+    <h2 class="lista-film">LISTA FILM</h2>
+    <ul class="film-container">
 
-  </ul>
+    </ul>
+    <h2 class="lista-serie">LISTA SERIE TV</h2>
+    <ul class="serie-container">
+
+    </ul>
+  </div>
+
   <!-- /lista di film + serietv -->
 
   <!-- TEMPLATES -->
@@ -35,7 +43,7 @@
     <div class="layover-container">
       <div class="layover">
         <li class="movie">
-          <h2 class="title">{{type}} : {{title}}</h1>
+          <h2 class="title">Titolo : {{title}}</h1>
           <h3 class="original-title">Titolo originale: {{original_title}}</h3>
           <h3 class="language">Lingua: <img class="flag_img" src="https://www.unknown.nu/flags/images/{{original_language}}-100"></h3>
           <ul class="star-list">
@@ -48,10 +56,17 @@
           {{/if}}
         </li>
       </div>
-      <img style="width: 342px; height: 513px;" src="{{basic_path}}{{poster}}" alt="img_movie">
+      <img class="poster-img" src="{{basic_path}}{{poster}}" alt="img_movie">
     </div>
   </script>
   <!-- /template globale per film e serie -->
+
+  <!-- template notFound -->
+  <script id="not-found-template" type="text/x-handlebars-template">
+    <p class="bold f-s-20">Non abbiamo trovato nessun risultato</p>
+  </script>
+  <!-- /template notFound -->
+
   <!-- /TEMPLATES -->
 
   <script src="js/main.js" charset="utf-8"></script>

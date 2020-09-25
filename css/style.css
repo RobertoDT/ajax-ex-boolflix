@@ -8,6 +8,9 @@
 .bold{
   font-weight: bold;
 }
+.f-s-20{
+  font-size: 20px;
+}
 .white{
   color: white;
 }
@@ -17,6 +20,9 @@ body{
   background-color: darkgrey;
 }
 
+header{
+  margin-bottom: 20px;
+}
 .search_bar{
   width: 100%;
   background-color: black;
@@ -26,9 +32,9 @@ body{
   justify-content: space-between;
   align-items: center;
 }
-h1{
-  color: red;
-  font-size: 50px;
+.main-logo{
+  width: 200px;
+  cursor: pointer;
 }
 
 .search_container{
@@ -42,12 +48,19 @@ h1{
   height: 30px;
   width: 50px;
 }
-
-#global-list{
-  margin: 50px;
+.wrapper{
+  width: 100%;
+}
+.lista-film, .lista-serie{
+  text-align: center;
+  font-size: 30px;
+  color: red;
+}
+.film-container, .serie-container{
+  margin: 50px 100px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
 }
 
 .movie{
@@ -70,6 +83,11 @@ h1{
   display: flex;
   list-style: none;
   color: #e6e600;
+}
+
+.poster-img{
+  width: 342px;
+  height: 500px;
 }
 
 .flag_img{
